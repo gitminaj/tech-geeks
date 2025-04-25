@@ -1,3 +1,5 @@
 node_modules
 StudyNotion-Project Description.docx
 **/*.env
+
+Backend/.env
