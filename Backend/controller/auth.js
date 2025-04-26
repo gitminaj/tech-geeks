@@ -1,6 +1,7 @@
 import OTP from '../models/OTP.js';
 import User from '../models/Users.js';
 import bycrpt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 // signup
 export  async function signup (req, res){
@@ -73,7 +74,7 @@ export const login = async (req, res) =>{
     if(!user){
         return res.status(401).json({
             success: false,
-            message: 'User does not exist, register'
+            message: 'User does not exist, Please register'
         })
     };
     
@@ -86,7 +87,22 @@ export const login = async (req, res) =>{
         })
     }
 
-    
+    const payload = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        AccountType: user.AccountType,
+        number: user.number
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET);
+
+    return res.cookie('token', token).status(200).json({
+        success: true,
+        message: 'login Successfully!',
+        token: token,
+    });
+
 }
 
 
@@ -144,4 +160,39 @@ export  async function sendOTP (req, res) {
             error: err.message
         })
     }
+}
+
+// changepassword
+
+export const changepassword = async (req, res) =>{
+    try {
+        const { password } = req.body;
+    const { email } = req.user;
+
+    if(!password){
+        return res.status(404).json({
+            success: false,
+            message: 'Password not found'
+        })
+    };
+
+    const hashedPassword = await bycrpt.hash(password, 10);
+
+    const response = await User.findOneAndUpdate({ email }, { password: hashedPassword});
+
+    return res.status(201).json({
+        success: true,
+        message: 'Password updated!',
+        response: response
+    })
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: error.message
+        })
+    }
+    
+
+
 }
