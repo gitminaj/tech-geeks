@@ -30,7 +30,15 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Profile'
     },
-})
+    token:{
+        type: String
+    },
+    resetPasswordExpires:{
+        type: Date
+    }
+},
+{ timestamps: true}
+)
 
 const User = mongoose.model('user', userSchema);
 

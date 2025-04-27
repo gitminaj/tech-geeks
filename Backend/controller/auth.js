@@ -1,5 +1,6 @@
 import OTP from '../models/OTP.js';
 import User from '../models/Users.js';
+import Profile from '../models/Profile.js';
 import bycrpt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -26,8 +27,9 @@ export  async function signup (req, res){
         const otpExist = await OTP.find({ email }).sort({createdAt: -1}).limit(1);
 
         console.log('otp', otpExist[0])
+        console.log('req otp', otp)
 
-        if(otpExist.length === 0 || otp !== Number(otpExist[0].otp)){
+        if(otpExist.length === 0 || Number(otp) !== Number(otpExist[0].otp)){
             return res.status(400).json({
                 success: false,
                 message: 'Invalid otp'
@@ -37,13 +39,23 @@ export  async function signup (req, res){
         const hashedPassword = await bycrpt.hash(password, 10);
     
         try {
+            const profile = await Profile.create({
+                profession: null,
+                dateOfBirth: null,
+                gender: null,
+                about: null
+            })
+
+            console.log('profile', profile);
+
             const respone = await User.create({
                 firstName,
                 lastName,
                 email,
                 password: hashedPassword,
                 AccountType,
-                number
+                number,
+                otherDetials: profile._id
             })
     
             return res.status(201).json({
@@ -137,7 +149,7 @@ export  async function sendOTP (req, res) {
         if(otpExist){
             return res.status(400).json({
                 success: false,
-                error: 'OTP already exist'
+                error: 'something went wrong try again'
             })
         }
 
