@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 export const verifyToken = (req, res, next) =>{
     try {
-        const token = req?.cookies?.token || req.header('Authorization').replace('Bearer ', '')
+        const token = req?.cookies?.token || req?.header('Authorization')?.replace('Bearer ', '')
         if(!token || token === undefined){
             return res.status(404).json({
                 success: false,

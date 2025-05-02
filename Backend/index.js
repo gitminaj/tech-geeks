@@ -1,7 +1,8 @@
 import express from 'express';
 import 'dotenv/config';
 import db from './config/db.js';
-import  userRoutes  from './routes/auth.js'
+import  userRoutes  from './routes/auth.js';
+import tagsRoutes from './routes/tags.js'
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded( {extended: true} ));
 
 // routes
 app.use('/api', userRoutes);
+app.use('/api', tagsRoutes);
 
 app.get("/", (req, res) => {
     return res.json({
