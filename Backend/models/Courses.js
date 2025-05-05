@@ -11,10 +11,10 @@ const coursesSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'ReviewAndRating'
     }],
-    instructors:[{
+    instructor:{
         type: mongoose.Types.ObjectId,
         ref: 'Users'
-    }],
+    },
     language:{
         type: String
     },
@@ -39,8 +39,16 @@ const coursesSchema = new mongoose.Schema({
             ref: 'Users'
         }
     ],
-    tags:{
+    category:{
         type: mongoose.Types.ObjectId,
-        ref: 'Tags'
+        ref: 'Category'
+    },
+    tags:{
+        type: String
     }
+
 })
+
+const Course = mongoose.model('Courses', coursesSchema);
+
+export default Course;

@@ -2,7 +2,8 @@ import express from 'express';
 import 'dotenv/config';
 import db from './config/db.js';
 import  userRoutes  from './routes/auth.js';
-import tagsRoutes from './routes/tags.js'
+import categoryRoutes from './routes/category.js';
+import courseRoutes from './routes/course.js';
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use(express.urlencoded( {extended: true} ));
 
 // routes
 app.use('/api', userRoutes);
-app.use('/api', tagsRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api', courseRoutes);
 
 app.get("/", (req, res) => {
     return res.json({

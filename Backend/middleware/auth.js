@@ -9,7 +9,7 @@ export const verifyToken = (req, res, next) =>{
                 error: 'token missing'
             })
         }
-        console.log('token', token)
+        
         try {
             const data = jwt.verify(token, process.env.JWT_SECRET);
 

@@ -26,6 +26,9 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    courses:[{
+        type: String
+    }],
     otherDetials:{
         type: mongoose.Types.ObjectId,
         ref: 'Profile'
