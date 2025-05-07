@@ -1,5 +1,5 @@
 import express from "express";
-import { createCourse } from "../controller/course.js";
+import { createCourse, getCourseById } from "../controller/course.js";
 import { upload } from "../config/file-upload.js";
 import { verifyToken } from "../middleware/auth.js";
 import restrict from "../middleware/restrict.js";
@@ -13,5 +13,7 @@ router.post(
   upload.single("thumbnail"),
   createCourse
 );
+
+router.get('/getCourseById/:id', getCourseById);
 
 export default router;

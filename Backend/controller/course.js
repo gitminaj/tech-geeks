@@ -67,4 +67,32 @@ export const createCourse = async (req, res) => {
 
 };
 
+export const getCourseById = async (req, res) =>{
+  try {
+    const { id } = req.params;
+
+  if(!id){
+    return res.status(404).json({
+      success: false,
+      message: 'course Id not found'
+    })
+  }
+
+  const course = await Course.findById(id);
+
+  return res.status(200).json({
+    success: true,
+    message: 'course fetched successfully!',
+    data: course
+  })
+  } catch (error) {
+    console.log('error while fetching', error);
+    return res.status(500).json({
+      success: false,
+      error: error.message
+    })
+  }
+  
+}
+
 
