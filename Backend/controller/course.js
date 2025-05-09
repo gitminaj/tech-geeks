@@ -14,8 +14,7 @@ export const createCourse = async (req, res) => {
   } = req.body;
   const { id: instructorId } = req.user
 
-  const thumbnail = req.file;
-  const thumbnailPath = thumbnail.path;
+  const thumbnailPath = req.file.path;
 
   if (!title || !description || !language || !tags || !category || !price || !whatYouWillLearn){
     return res.status(404).json({
