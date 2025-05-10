@@ -1,5 +1,5 @@
-import Section from "../models/Section";
-import SubSection from "../models/SubSection";
+import Section from "../models/Section.js";
+import SubSection from "../models/SubSection.js";
 
 export const createSubSection = async (req, res) =>{
     try {
@@ -16,7 +16,7 @@ export const createSubSection = async (req, res) =>{
 
     const subSection = await SubSection.create({
         title: title,
-        timeDuration: timeDuration,
+        timeDuration: Number(timeDuration),
         description: description,
         videoUrl: videoUrl
     });

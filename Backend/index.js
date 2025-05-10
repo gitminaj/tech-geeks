@@ -6,6 +6,8 @@ import  userRoutes  from './routes/auth.js';
 import categoryRoutes from './routes/category.js';
 import courseRoutes from './routes/course.js';
 import sectionRoutes from './routes/section.js';
+import subSectionRoutes from './routes/subSection.js';
+import profileRoutes from './routes/profile.js';
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', courseRoutes);
 app.use('/api', sectionRoutes);
+app.use('/api', subSectionRoutes);
+app.use('/api', profileRoutes);
 
 app.get("/", (req, res) => {
     return res.json({
