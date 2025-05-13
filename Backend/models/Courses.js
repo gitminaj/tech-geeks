@@ -9,11 +9,11 @@ const coursesSchema = new mongoose.Schema({
     },
     reviewAndRating:[{
         type: mongoose.Types.ObjectId,
-        ref: 'ReviewAndRating'
+        ref: 'reviewAndRating'
     }],
     instructor:{
         type: mongoose.Types.ObjectId,
-        ref: 'Users'
+        ref: 'user'
     },
     language:{
         type: String
@@ -36,7 +36,7 @@ const coursesSchema = new mongoose.Schema({
     studentsEnrolled:[
         {
             type: mongoose.Types.ObjectId,
-            ref: 'Users'
+            ref: 'user'
         }
     ],
     category:{

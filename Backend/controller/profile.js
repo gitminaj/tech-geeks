@@ -44,16 +44,16 @@ export const updateProfile = async (req, res) =>{
 
 export const getProfileByUserId = async (req, res) =>{
     try {
-        const { userId } = req.params;
+        const { id } = req.params;
 
-        if(!userId){
+        if(!id){
             return res.status(404).json({
                 success: false,
-                message: 'userid not found'
+                message: 'id not found'
             })
         }
 
-        const user = await User.findById(userId);
+        const user = await User.findById(id);
 
         if(!user){
             return res.status(404).json({

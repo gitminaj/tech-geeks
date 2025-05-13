@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const reviewAndRatingSchema = new mongoose.Schema({
     user:{
         type: mongoose.Types.ObjectId,
-        ref: 'User'
+        ref: 'user'
     },
     review:{
         type: String

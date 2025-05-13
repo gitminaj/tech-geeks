@@ -8,6 +8,7 @@ import courseRoutes from './routes/course.js';
 import sectionRoutes from './routes/section.js';
 import subSectionRoutes from './routes/subSection.js';
 import profileRoutes from './routes/profile.js';
+import reviewRoutes from './routes/reviewAndRating.js';
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api', courseRoutes);
 app.use('/api', sectionRoutes);
 app.use('/api', subSectionRoutes);
 app.use('/api', profileRoutes);
+app.use('/api/review', reviewRoutes);
 
 app.get("/", (req, res) => {
     return res.json({
