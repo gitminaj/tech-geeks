@@ -100,13 +100,15 @@ export const login = async (req, res) =>{
     }
 
     const payload = {
-        id: user._id,
+        userId: user._id.toString(),
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         AccountType: user.AccountType,
         number: user.number
     };
+
+    console.log('payload', payload)
 
     const token = jwt.sign(payload, process.env.JWT_SECRET);
 
@@ -180,7 +182,15 @@ export  async function sendOTP (req, res) {
 export const changepassword = async (req, res) =>{
     try {
         const { password } = req.body;
-    const { email } = req.user;
+    const { userId } = req.user;
+
+    if(!userId){
+
+        return res.status(404).json({
+            success: false,
+            message: 'userId not found'
+        })
+    }
 
     if(!password){
         return res.status(404).json({
@@ -191,7 +201,7 @@ export const changepassword = async (req, res) =>{
 
     const hashedPassword = await bycrpt.hash(password, 10);
 
-    const response = await User.findOneAndUpdate({ email }, { password: hashedPassword});
+    const response = await User.findByIdAndUpdate( userId , { password: hashedPassword}, {new:true});
 
     return res.status(201).json({
         success: true,

@@ -25,10 +25,10 @@ app.use(express.urlencoded( {extended: true} ));
 // routes
 app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
-app.use('/api', courseRoutes);
+app.use('/api/course', courseRoutes);
 app.use('/api', sectionRoutes);
 app.use('/api', subSectionRoutes);
-app.use('/api', profileRoutes);
+app.use('/api/profile', profileRoutes);
 app.use('/api/review', reviewRoutes);
 
 app.get("/", (req, res) => {

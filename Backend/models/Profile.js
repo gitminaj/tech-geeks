@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 
 const profileSchema = new mongoose.Schema({
+    image:{
+        type: String
+    },
     profession:{
         type: String
     },

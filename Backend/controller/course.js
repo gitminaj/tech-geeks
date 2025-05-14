@@ -115,3 +115,23 @@ export const getCourseById = async (req, res) => {
     });
   }
 };
+
+export const getAllCourses = async (req, res) =>{
+  try {
+    const response = await Course.find()
+    .populate('reviewAndRating')
+    .populate('instructor');
+
+    return res.status(200).json({
+      success: true,
+      data: response
+    })
+
+  } catch (err) {
+    console.log("error while fetching", err);
+    return res.status(500).json({
+      success: false,
+      error: err.message,
+    });
+  }
+}

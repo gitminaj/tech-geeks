@@ -63,3 +63,5 @@ export const getAllCategory = async (req, res) =>{
 
 
 } 
+
+// category page detail

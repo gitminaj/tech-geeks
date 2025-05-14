@@ -1,5 +1,5 @@
 import express from "express";
-import { createCourse, getCourseById } from "../controller/course.js";
+import { createCourse, getAllCourses, getCourseById } from "../controller/course.js";
 import { upload } from "../config/file-upload.js";
 import { verifyToken } from "../middleware/auth.js";
 import restrict from "../middleware/restrict.js";
@@ -14,6 +14,7 @@ router.post(
   createCourse
 );
 
+router.get('/getAllCourses', getAllCourses);
 router.get('/getCourseById/:id', getCourseById);
 
 export default router;

@@ -76,3 +76,7 @@ export const getSectionById = async (req, res) =>{
         })
     }
 }
+
+// update section
+
+// delete section
