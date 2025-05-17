@@ -121,3 +121,22 @@ export const updatePicture = async (req, res) => {
 };
 
 // get enrolled courses
+
+export const getEnrolledCourses = async (req, res) =>{
+  try {
+    const { userId } = req.user;
+
+    const enrolledCourses = await User.findById(userId).populate('courses');
+
+    return res.status(200).json({
+      success: true,
+      data: enrolledCourses
+    })
+
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: 'error fetching enrolled courses'
+    });
+  }
+}

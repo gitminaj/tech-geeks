@@ -77,7 +77,6 @@ export  async function signup (req, res){
 }
 
 // login
-
 export const login = async (req, res) =>{
     const { email, password } = req.body;
 
@@ -120,10 +119,7 @@ export const login = async (req, res) =>{
 
 }
 
-
-
 // sentotp
-
 const generateOTP = () => {
     const timestamp = Date.now().toString(); // 1
     const random = Math.random().toString().slice(2, 8); // 2
@@ -131,7 +127,6 @@ const generateOTP = () => {
   
     return otp;
   };
-  
 
 export  async function sendOTP (req, res) {
     const { email } = req.body;
@@ -178,7 +173,6 @@ export  async function sendOTP (req, res) {
 }
 
 // changepassword
-
 export const changepassword = async (req, res) =>{
     try {
         const { password } = req.body;

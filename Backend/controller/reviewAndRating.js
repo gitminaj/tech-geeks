@@ -14,7 +14,9 @@ export const createReview = async (req, res) =>{
 
         const { id } = req.user;
 
-        const course = await Course.findById(courseId);
+        const course = await Course.findById(courseId).populate('reviewAndRating');
+
+        // return console.log('course', course);
 
         if(!course){
             return res.status(404).json({
@@ -26,7 +28,18 @@ export const createReview = async (req, res) =>{
         if(!course.studentsEnrolled.includes(id)){
             return res.status(404).json({
                 success: false,
-                message: 'Student is not enrolled for the course'
+                message: 'Student is not enrolled for the course',
+
+            })
+        }
+
+        const userReview = course.reviewAndRating.filter( review => review.user == id  );
+
+        if(userReview.length > 0){
+            return res.status(400).json({
+                success: false,
+                message: 'user already added the review for the courses',
+                data: userReview
             })
         }
 
@@ -59,6 +72,34 @@ export const createReview = async (req, res) =>{
     }
 }
 
+export const deleteReview = async (req, res) =>{
+    try {
+        const { id } = req.params;
+
+        const review = await ReviewAndRating.findById(id);
+
+        if(!review){
+            return res.status(404).json({
+                success: false,
+                message: 'review not found'
+            })
+        }
+
+        const response = await ReviewAndRating.findByIdAndDelete(id);
+
+        return res.status(201).json({
+            success: true,
+            message: 'Review deleted',
+            data: response
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        })
+    }
+}
+
 // export const getAvgReview = async (req, res) =>{
 //     try {
 //         const { courseId } = req.params;
@@ -74,3 +115,22 @@ export const createReview = async (req, res) =>{
 //         })
 //     }
 // }
+
+// getallratingandreviews
+
+export const getAllReviews = async (req, res) =>{
+    try {
+        const reviews = await ReviewAndRating.find({});
+
+        return res.status(200).json({
+            success: true,
+            data: reviews
+        });
+    } catch (err) {
+       return res.status(500).json({
+        success: false,
+        message: 'error fetching all revies',
+        error: err.message
+       }) 
+    }
+}

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Section from "../models/Section.js";
 import SubSection from "../models/SubSection.js";
 
@@ -67,4 +68,48 @@ export const getSubSectionById = async (req, res) =>{
     }
 }
 
+// update subsecction
+
+// delete subsection
+
+export const deletSubSection = async (req, res) =>{
+      try {
+        const { id } = req.params;
+
+        const subSection = await SubSection.findById(id);
+
+        if(!subSection){
+            return res.status(404).json({
+                success: false,
+                message: 'sub-section not found'
+            })
+        }
+
+        // return console.log('attached', attachedSection);
+
+        const response = await SubSection.findByIdAndDelete(id);
+
+        const attachedSection = await Section.find({ subSection : id });
+
+        console.log('attached',attachedSection);
+
+        if(attachedSection.length > 0){
+            var updatedSection = await Section.updateOne( { _id : attachedSection[0]._id }, {
+                $pull: { subSection: new mongoose.Types.ObjectId(id) }
+            }, {new: true} )
+        }
+
+        return res.status(201).json({
+            success: true,
+            message: 'sub-section deleted',
+            data: response,
+            section: updatedSection || ""
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        })
+    }
+}
 

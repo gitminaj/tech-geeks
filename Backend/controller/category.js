@@ -1,4 +1,5 @@
 import Category from "../models/Category.js";
+import Course from "../models/Courses.js";
 
 export const createCategory = async (req, res) => {
   try {
@@ -65,3 +66,24 @@ export const getAllCategory = async (req, res) =>{
 } 
 
 // category page detail
+
+export const categoryPageDetails = async (req, res) =>{
+  try {
+    const { courseId } = req.body;
+
+    const selectedCourse = await  Course.find({ category: courseId });
+
+    return res.status(200).json({
+      success: true,
+      data: selectedCourse
+    });
+    
+  } catch (err) {
+    console.log('error while fetching data', err);
+    return res.status(500).json({
+      success: false,
+      error: err.message
+    })
+    
+  }
+}

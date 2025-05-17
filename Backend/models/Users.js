@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     courses:[{
-        type: String
+        type: mongoose.Types.ObjectId,
+        ref: 'Courses'
     }],
     otherDetials:{
         type: mongoose.Types.ObjectId,
