@@ -77,6 +77,63 @@ export const getSectionById = async (req, res) =>{
     }
 }
 
-// update section
+// update section (not tested)
+
+export const updateSection = async (req, res) =>{
+    try {
+        const { id } = req.params;
+
+        const section = await Section.findById(id);
+
+        if(!section){
+            return res.status(404).json({
+                success: false,
+                message: 'section not found'
+            })
+        }
+
+        const response = await Section.findByIdAndUpdate(id , { ...req.body }, {new:true});
+
+        return res.status(201).json({
+            success: true,
+            data: response
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        })
+    }
+}
+
+
 
 // delete section
+
+export const deletSection = async (req, res) =>{
+      try {
+        const { id } = req.params;
+
+        const section = await Section.findById(id);
+
+        if(!section){
+            return res.status(404).json({
+                success: false,
+                message: 'section not found'
+            })
+        }
+
+        const response = await ReviewAndRating.findByIdAndDelete(id);
+
+        return res.status(201).json({
+            success: true,
+            message: 'Review deleted',
+            data: response
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        })
+    }
+}

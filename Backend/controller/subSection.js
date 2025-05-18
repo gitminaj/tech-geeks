@@ -70,6 +70,40 @@ export const getSubSectionById = async (req, res) =>{
 
 // update subsecction
 
+export const updateSubSection = async (req, res) =>{
+    try {
+        const { id } = req.params;
+
+        const subSection = await SubSection.findById(id);
+
+        if(!subSection){
+            return res.status(404).json({
+                success: false,
+                message: 'subsection not found'
+            })
+        }
+
+        const videoUrl = req?.file?.path;
+
+        const payload = {
+            ...req.body,
+            videoUrl: videoUrl || subSection.videoUrl
+        }
+
+        const response = await SubSection.findByIdAndUpdate(id,payload, {new:true});
+
+        return res.status(201).json({
+            success: true,
+            data: response
+        })
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message
+        })
+    }
+}
+
 // delete subsection
 
 export const deletSubSection = async (req, res) =>{
@@ -103,7 +137,7 @@ export const deletSubSection = async (req, res) =>{
             success: true,
             message: 'sub-section deleted',
             data: response,
-            section: updatedSection || ""
+            // section: updatedSection || ""
         })
     } catch (err) {
         return res.status(500).json({

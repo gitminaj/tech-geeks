@@ -66,7 +66,6 @@ export const getAllCategory = async (req, res) =>{
 } 
 
 // category page detail
-
 export const categoryPageDetails = async (req, res) =>{
   try {
     const { courseId } = req.body;
