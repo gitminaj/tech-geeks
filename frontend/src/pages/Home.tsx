@@ -1,8 +1,9 @@
 import { FaArrowRight } from "react-icons/fa";
-import YellowBtn from "../components/YellowBtn";
-import BlackBtn from "../components/BlackBtn";
+import YellowBtn from "../components/Btn";
 
-import bannerVideo from '../assets/testVideo.mp4';
+import bannerVideo from "../assets/testVideo.mp4";
+import BlueText from "../components/BlueText";
+import Btn from "../components/Btn";
 
 export default function Home() {
   return (
@@ -14,12 +15,9 @@ export default function Home() {
         </p>
         <h1 className="text-white text-[30px] font-[600] mt-5 ">
           Empower Your Future with
-          <span className="text-transparent bg-clip-text bg-linear-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]">
-            {" "}
-            Coding Skills
-          </span>{" "}
+          <BlueText body={"Coding Skills"} />
         </h1>
-        <p className="text-[#838894] text-[16px] mt-3 md:w-[70%]">
+        <p className="text-[#838894] text-center text-[16px] mt-3 md:w-[70%]">
           {" "}
           With our online coding courses, you can learn at your own pace, from
           anywhere in the world, and get access to a wealth of resources,
@@ -27,12 +25,51 @@ export default function Home() {
           instructor{" "}
         </p>
 
-        <div className="flex flex-row justify-evenly mt-5 md:w-[50%]" >
-          <YellowBtn body={"Learn More"} />
-          <BlackBtn body={"Book a Demo"} />
+        <div className="flex flex-row justify-center mt-8 md:w-[50%]">
+          <Btn body={"Learn More"} active={true} className="mr-5" />
+          <Btn body={"Book a Demo"} />
         </div>
 
-		<video src={bannerVideo} autoPlay muted loop />
+        <video className="mt-5" src={bannerVideo} autoPlay muted loop />
+
+        <div className="flex flex-row w-[100%]">
+          <div className="w-50% pr-20">
+            <h1 className="text-white text-[30px] font-[600] mt-5 ">
+              Unlock your
+              <BlueText body={"coding potential"} /> with our online courses.
+            </h1>
+            <p className="text-[#838894] text-[16px] mt-3">
+          {" "}
+          With our online coding courses, you can learn at your own pace, from
+          anywhere in the world, and get access to a wealth of resources,
+          including hands-on projects, quizzes, and personalized feedback
+          instructor{" "}
+        </p>  
+        <div className="flex flex-row mt-5">
+
+        <Btn active={true} className="mr-5"> Try it Yourself <FaArrowRight className="ml-2" /> </Btn>
+        <Btn body={"Learn More"} />
+        </div>
+          </div>
+          <div className="w-50%">
+            <span>
+              {`<!DOCTYPE html>
+              <html>
+              head><title>Example</title><linkrel="stylesheet"href="styles.css">
+              /head>
+              body>
+              h1><ahref="/">Header</a>
+              /h1>
+              nav><ahref="one/">One</a><ahref="two/
+              ">Two</a><ahref="three/">Three</a>
+              /nav>
+              
+              
+              `}
+            </span>
+          </div>
+          
+        </div>
       </div>
     </>
   );
