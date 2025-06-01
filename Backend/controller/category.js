@@ -75,7 +75,7 @@ export const categoryPageDetails = async (req, res) =>{
     return res.status(200).json({
       success: true,
       data: selectedCourse
-    });
+    }); 
     
   } catch (err) {
     console.log('error while fetching data', err);
